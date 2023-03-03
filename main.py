@@ -3,8 +3,12 @@ import pandas as pd
 
 
 def print_col(c_list):
+    """
+    print list in 6 columns
 
-    # Function printing list in columns
+    :param c_list:
+    :return:
+    """
 
     for a, b, c, d, e, f in zip(c_list[::6], c_list[1::6], c_list[2::6], c_list[3::6], c_list[4::6], c_list[5::6]):
         print('{:<20}{:<20}{:<20}{:<20}{:<20}{:<}'.format(a, b, c, d, e, f))
@@ -45,18 +49,18 @@ if level == 'EASY':
             ans_str[ind] = ans_str[ind].replace('_', '')
             ans_str[ind] += champion_names[ind]
             champions_not_guessed.remove(ans)
+            # Printing answer strings in columns
+            print_col(ans_str)
+            print()
         elif ans in champion_names:
             print("You have already guessed it!")
 
         else:
             print('Wrong input!')
 
-        # Printing answer strings in columns
-        print_col(ans_str)
-        print('')
-
         if len(champions_not_guessed) == 0:
             not_won = False
+            print("CONGRATULATIONS! YOU HAVE WON!!!")
 
 elif level == 'MEDIUM':
 
@@ -73,19 +77,18 @@ elif level == 'MEDIUM':
             ind = champion_names.index(ans)
             ans_str[ind] += champion_names[ind][1:]
             champions_not_guessed.remove(ans)
+            # Printing answer strings in columns
+            print_col(ans_str)
+            print()
         elif ans in champion_names:
             print("You have already guessed it!")
 
         else:
             print('Wrong input!')
 
-        # Printing answer strings in columns
-        print_col(ans_str)
-        print('')
-
         if len(champions_not_guessed) == 0:
             not_won = False
-
+            print("CONGRATULATIONS! YOU HAVE WON!!!")
 
 elif level == 'HARD':
     # list of answer strings with current answers and place for every champion
@@ -100,21 +103,23 @@ elif level == 'HARD':
             ind = champion_names.index(ans)
             ans_str[ind] += champion_names[ind]
             champions_not_guessed.remove(ans)
+            # Printing answer strings in columns
+            print_col(ans_str)
+            print()
         elif ans in champion_names:
             print("You have already guessed it!")
 
         else:
             print('Wrong input!')
 
-        # Printing answer strings in columns
-        print_col(ans_str)
-        print('')
-
         if len(champions_not_guessed) == 0:
             not_won = False
+            print("CONGRATULATIONS! YOU HAVE WON!!!")
 
 else:
     print('No such level!')
+
+
 
 
 '''
