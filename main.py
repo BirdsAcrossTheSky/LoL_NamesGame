@@ -15,7 +15,8 @@ def print_col(c_list):
 
 
 # importing champion data to a DataFrame from league of legends api
-api_url = 'http://ddragon.leagueoflegends.com/cdn/13.3.1/data/en_US/champion.json'
+api_url = 'http://ddragon.leagueoflegends.com/cdn/13.9.1/data/en_US/champion.json' # There is version in URL so it does
+# not update automatically
 response = requests.get(api_url)
 champions_json = response.json()
 champions_df = pd.DataFrame(champions_json)
@@ -119,10 +120,3 @@ elif level == 'HARD':
 else:
     print('No such level!')
 
-
-
-
-'''
-print_col(champion_names)
-print(len(champion_names))
-'''
