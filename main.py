@@ -1,5 +1,6 @@
 import requests
 import pandas as pd
+import itertools
 
 
 def print_col(c_list):
@@ -10,13 +11,19 @@ def print_col(c_list):
     :return:
     """
 
-    for a, b, c, d, e, f in zip(c_list[::6], c_list[1::6], c_list[2::6], c_list[3::6], c_list[4::6], c_list[5::6]):
+    for a, b, c, d, e, f in itertools.zip_longest(c_list[::6], c_list[1::6], c_list[2::6], c_list[3::6], c_list[4::6], c_list[5::6], fillvalue=''):
         print('{:<20}{:<20}{:<20}{:<20}{:<20}{:<}'.format(a, b, c, d, e, f))
 
 
+# getting the newest version
+api_ver_url = 'https://ddragon.leagueoflegends.com/api/versions.json'
+response_ver = requests.get(api_ver_url)
+versions_json = response_ver.json()
+versions_df = pd.DataFrame(versions_json)
+newest_version = versions_df[0][0]
+
 # importing champion data to a DataFrame from league of legends api
-api_url = 'http://ddragon.leagueoflegends.com/cdn/13.9.1/data/en_US/champion.json' # There is version in URL so it does
-# not update automatically
+api_url = f'http://ddragon.leagueoflegends.com/cdn/{newest_version}/data/en_US/champion.json'
 response = requests.get(api_url)
 champions_json = response.json()
 champions_df = pd.DataFrame(champions_json)
@@ -25,6 +32,7 @@ champion_names = [champion['name'] for champion in champions_df['data']]
 # saving champion names as a list
 champion_names.sort()
 champions_not_guessed = list(champion_names)
+
 
 # setting flag of loop
 not_won = True
